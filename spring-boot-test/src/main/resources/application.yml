@@ -1,0 +1,8 @@
+myapp:
+  api:
+    qiita:
+      url: https://qiita.com
+      timeout: 200
+    yahoo:
+      url: https://yahoo.co.jp
+      timeout: 100
