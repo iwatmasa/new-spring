@@ -1,5 +1,19 @@
 Spring Bootのテスト用ソース
 
+０．環境設定
+以下のツールでSpringBootのソース及びビルド環境を設定しています。
+
+【Javaコンパイラ、ビルドツール】
+・jdk-24.0.1
+・apache-maven-3.9.10
+
+【Javaライブラリ】
+・spring-boot 3.5.3 (Spring Boot Starter Parent 3.5.3)
+・lombok 1.18.38 (Spring Boot Starter Parent 3.5.3)
+・jackson-core 2.19.1
+【Javaテストツール】
+・assertj-core 3.27.3
+
 １．プロジェクトについて
 spring-boot-test配下にSTS（spring tool suite）を使った作成したSpringBootのプロジェクトが配置されています。
 以下のコマンドで、対象プロジェクトに移動。
