@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>従業員情報テスト：従業員登録</title>
+  <link rel="stylesheet" href="/bootstrap-5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">従業員登録</h1>
+    <form id="employeeForm" class="mb-3">
+      <div class="mb-3 row">
+        <label for="id" class="col-sm-2 col-form-label">ID</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="id" placeholder="1234567" required>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="name" class="col-sm-2 col-form-label">名前</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" placeholder="富士　太郎" required>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="email" class="col-sm-2 col-form-label">メール</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" placeholder="abc@fsi.co.jp" required>
+        </div>
+      </div>
+      <button type="button" id="postBtn" class="btn btn-primary">登録</button>
+    </form>
+    <pre id="result1"></pre>
+    <a href="/" id="returnBtn" class="btn btn-secondary">戻る</a>
+  </div>
+  <script>
+    function formatDate(date) {
+      const pad = (num) => String(num).padStart(2, '0');
+      return `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }
+
+    document.getElementById('postBtn').onclick = async function() {
+      const id = document.getElementById('id').value;
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const now = formatDate(new Date());
+      const data = { id: id, name: name, email: email, datetime: now };
+      const res = await fetch('http://localhost:8080/employee/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const text = await res.text() + now;
+      document.getElementById('result1').textContent = text;
+    };
+  </script>
+</body>
+</html>
