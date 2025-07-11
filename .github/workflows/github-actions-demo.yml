@@ -7,11 +7,11 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 24
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '24'
 
       - name: Grant execute permission to mvnw
         run: chmod +x spring-boot-test/mvnw
