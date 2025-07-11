@@ -16,9 +16,20 @@ jobs:
       - name: Grant execute permission to mvnw
         run: chmod +x spring-boot-test/mvnw
 
-      - name: Build Spring Boot app
+      - name: Start Spring Boot app
         working-directory: spring-boot-test
-        run: ./mvnw clean package
+        run: ./mvnw spring-boot:run &
+
+      - name: Wait for Spring Boot to be ready
+        run: |
+          for i in {1..30}; do
+            if nc -z localhost 8080; then
+              echo "Spring Boot is up!"
+              break
+            fi
+            echo "Waiting for Spring Boot... ($i)"
+            sleep 3
+          done
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -70,3 +81,7 @@ jobs:
           unzip chromedriver_linux64.zip
           sudo mv -f chromedriver /usr/local/bin/chromedriver
           sudo chmod 0755 /usr/local/bin/chromedriver
+
+      - name: Stop Spring Boot app
+        run: |
+          pkill -f 'spring-boot:run' || true
