@@ -8,6 +8,13 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import time
 
+# Chromeオプション追加
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--user-data-dir=/tmp/chrome-user-data-py')
 
 
 def test_registration(driver, wait, id_val, name_val, email_val, expect_success):
@@ -66,7 +73,7 @@ def test_registration(driver, wait, id_val, name_val, email_val, expect_success)
 
 def main():
 
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=chrome_options)
 
     wait = WebDriverWait(driver, 10)
 
