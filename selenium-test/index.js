@@ -1,7 +1,15 @@
 const { Builder } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+const chromeOptions = new chrome.Options();
+chromeOptions.addArguments(
+  '--headless',
+  '--no-sandbox',
+  '--disable-dev-shm-usage',
+  '--user-data-dir=/tmp/chrome-user-data'
+);
 
 (async function test() {
-  let driver = await new Builder().forBrowser('chrome').build();
+  let driver = await new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
   try {
     await driver.get('http://localhost:8080/qiita');
     const body = await driver.findElement({css: 'body'}).getText();
@@ -16,7 +24,7 @@ const { Builder } = require('selenium-webdriver');
 })();
 
 (async function testTestEndpoint() {
-  let driver = await new Builder().forBrowser('chrome').build();
+  let driver = await new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
   try {
     await driver.get('http://localhost:8080/test');
     const body = await driver.findElement({css: 'body'}).getText();
